@@ -29,12 +29,12 @@ const replaceTemplate = (temp, product) => {
 // 1 create a server
 // 2 start a server
 const server = http.createServer((request, response)=> {
-  console.log(request.url);
-  const pathName = request.url;
+  // console.log(request.url);
+  // const pathName = request.url;
+  const {query, pathname} = url.parse(request.url, true); // optimized from request.url
 
   // Overview Page
-  if (pathName === '/' || pathName === '/overview') {
-
+  if (pathname === '/' || pathname === '/overview') {
     response.writeHead(200, { 'Content-type': 'text/html' });
     const cardsHtml = productDataObj.map(el => replaceTemplate(tempCard, el)).join('');
     const output = tempOverview.replace('{%PRODUCT_CARDS%}', cardsHtml);
@@ -43,11 +43,15 @@ const server = http.createServer((request, response)=> {
     // response.end('this is the Overview');
 
   // Product Page
-  } else if (pathName === '/product') {
-    response.end('this is the product');
+  } else if (pathname === '/product') {
+    console.log(query)
+    response.writeHead(200, { 'Content-type': 'text/html' });
+    const product = productDataObj[query.id];
+    const output = replaceTemplate(tempProduct, product)
+    response.end(output);
 
   // API
-  } else if (pathName === '/api') {
+  } else if (pathname === '/api') {
     response.writeHead(200, { 'Content-type': 'application/json' });
     response.end(productData);
     // optimized as a sync approach above! so that it will be read only once!
