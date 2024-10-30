@@ -23,12 +23,14 @@ add Script in Package.json if we want to use dev dependency in command. e.g. Nod
 npm run start // or "npm start"
 ```
 
-Symantic Version
-1.18.11
+Symantic Version e.g. ^1.18.11
+```
 1 -> Major Version e.g. has new big changes Breaking changes if not same major version.
 .18 -> Minor Version e.g. features but still working if new Minor version (None breaking changes)
 .11 -> Patch Version e.g. hotfix/bugfix
 
+
 * -> acceptts Major release *1.18.11
-^ -> accepts patch and minor release ^1.18.11
+^ -> accepts patch or minor release ^1.18.11
 ~ -> accepts bugfixes ~1.18.11
+```
