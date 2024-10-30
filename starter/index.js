@@ -2,6 +2,9 @@ const fs = require('fs'); // import fs from 'fs'; FILE SYSTEM
 const http = require('http');
 const url = require('url');
 
+const slugify = require('slugify'); // from instal dep in node_modules
+
+// local import 
 const replaceTemplate = require('./modules/replaceTemplate');
 
 
@@ -11,6 +14,10 @@ const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'u
 
 const productData = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8');
 const productDataObj = JSON.parse(productData); // parsing json data
+
+const slugs = productDataObj.map(el => slugify(el.productName, {lower: true}))
+
+console.log(slugs)
 
 // SERVER
 // 1 create a server
